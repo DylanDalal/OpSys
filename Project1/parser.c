@@ -22,9 +22,9 @@ int main()
 		/* input contains the whole command
 		 * tokens contains substrings from input split by spaces
 		 */
-
-		char *input = get_input();
-		printf("whole input: %s\n", input);
+			
+		char *input = get_input(); // reads stdin
+		printf("whole input: %s\n", input); 
 
 		tokenlist *tokens = get_tokens(input);
 		for (int i = 0; i < tokens->size; i++) {
@@ -65,6 +65,8 @@ char *get_input(void)
 	int bufsize = 0;
 
 	char line[5];
+	// read stdin 5 characters at a time and store them in 'line'
+	// stop when the input is empty
 	while (fgets(line, 5, stdin) != NULL) {
 		int addby = 0;
 		char *newln = strchr(line, '\n');
