@@ -1,42 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct {
-	int size;
-	char **items;
-} tokenlist;
+#include "main.h"
 
 char *get_input(void);
 tokenlist *get_tokens(char *input);
 
 tokenlist *new_tokenlist(void);
 void add_token(tokenlist *tokens, char *item);
-void free_tokens(tokenlist *tokens);
 
-int main()
+
+tokenlist *parser()
 {
-	while (1) {
-		printf("> ");
+	printf("> ");
 
-		/* input contains the whole command
-		 * tokens contains substrings from input split by spaces
+		/* "input" contains the whole command
+		 * "tokens" contains substrings from input, split by spaces
 		 */
 			
-		char *input = get_input(); // reads stdin
-		printf("whole input: %s\n", input); 
+	char *input = get_input(); // reads standard in
+	printf("whole input: %s\n", input);
 
-		tokenlist *tokens = get_tokens(input);
-		for (int i = 0; i < tokens->size; i++) {
-			printf("token %d: (%s)\n", i, tokens->items[i]);
-		}
+	tokenlist *tokens = get_tokens(input);
 
-		free(input);
-		free_tokens(tokens);
-	}
-
-	return 0;
+	free(input);
+	return(tokens);
 }
+
 
 tokenlist *new_tokenlist(void)
 {

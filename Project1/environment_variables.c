@@ -8,6 +8,16 @@
     abbinant  
   You can do this using the getenv() function. On how to use getenv, 
   read its man page. Note that this expansion happens no matter the command.
-/*
-
+*/
+#include <stdio.h>
 #include "main.h"
+
+tokenlist *environment_variables(tokenlist *tokens) {
+	for (int i = 0; i < tokens->size; i++) {
+		if (tokens->items[i][0] == '$')	{
+			printf("%s", tokens->items[i]);
+		}
+	}
+
+	return tokens;
+}
