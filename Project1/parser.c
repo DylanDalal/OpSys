@@ -3,7 +3,6 @@
 #include <string.h>
 #include "main.h"
 
-char *get_input(void);
 tokenlist *get_tokens(char *input);
 
 tokenlist *new_tokenlist(void);
@@ -19,11 +18,9 @@ tokenlist *parser()
 		 */
 			
 	char *input = get_input(); // reads standard in
-	printf("whole input: %s\n", input);
 
 	tokenlist *tokens = get_tokens(input);
 
-	free(input);
 	return(tokens);
 }
 

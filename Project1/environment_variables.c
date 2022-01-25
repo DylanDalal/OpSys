@@ -10,12 +10,16 @@
   read its man page. Note that this expansion happens no matter the command.
 */
 #include <stdio.h>
+#include <stdlib.h>
 #include "main.h"
 
 tokenlist *environment_variables(tokenlist *tokens) {
 	for (int i = 0; i < tokens->size; i++) {
 		if (tokens->items[i][0] == '$')	{
-			printf("%s", tokens->items[i]);
+			char *env_var = getenv(tokens->items[i] + 1);
+			if (env_var != NULL) {
+				tokens->items[i] = env_var;
+			}
 		}
 	}
 

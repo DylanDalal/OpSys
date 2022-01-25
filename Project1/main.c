@@ -5,12 +5,20 @@ int main() {
 
 	while(1) {
 		// parse standard input
-		tokenlist *input = parser();
+		tokenlist *temp = parser();
 		// "input" is an array of substrings, each substring
 		// holding one of the words in the input
-		tokenlist *input2 = environment_variables(input);
+		tokenlist *input = environment_variables(temp);
+		// so I think I need to deallocate the pointer memory
+		// but its not working?
+		//free_tokens(temp)
 
-		// Leave this for last
-		free_tokens(input);
+		printf("Input: ");
+		for (int i; i < input->size; i++) {
+			printf("%s ", input->items[i]);
+		}
+		printf("\n");
+
+		//free_tokens(input2);
 	}
 }

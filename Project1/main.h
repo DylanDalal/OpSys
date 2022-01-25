@@ -12,6 +12,7 @@ typedef struct {
 // Parser
 extern tokenlist *parser();
 extern void free_tokens(tokenlist *tokens);
+char *get_input(void);
 
 // Environment Variables
 extern tokenlist *environment_variables(tokenlist *tokens);
