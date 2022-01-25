@@ -1,11 +1,11 @@
 1. Finish Parser:
-   "Code will be provided to parse the command string into 
+   ~~"Code will be provided to parse the command string into 
     separate tokens, but you will need to build upon this 
-    code for further parsing."
+    code for further parsing."~~
     
 2. Environment Variables:
-   "Replace every token that starts with a dollar sign character 
-    into its corresponding value."
+   ~~"Replace every token that starts with a dollar sign character 
+    into its corresponding value."~~
     
 3. Prompt:
    "The prompt should indicate the absolute working directory, 
