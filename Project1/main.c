@@ -14,7 +14,7 @@ int main() {
 		//free_tokens(temp)
 
 		printf("Input: ");
-		for (int i; i < input->size; i++) {
+		for (int i = 0; i < input->size; i++) {
 			printf("%s ", input->items[i]);
 		}
 		printf("\n");
