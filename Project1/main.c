@@ -4,7 +4,7 @@
 int main() {
 
 	while(1) {
-		// parse standard input
+		// push prompt; parse standard input
 		tokenlist *temp = parser();
 		// "input" is an array of substrings, each substring
 		// holding one of the words in the input
@@ -19,6 +19,5 @@ int main() {
 		}
 		printf("\n");
 
-		//free_tokens(input2);
 	}
 }
