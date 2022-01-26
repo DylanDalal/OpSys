@@ -27,9 +27,38 @@ tokenlist *environment_variables(tokenlist *tokens) {
 			char *dir;
 			dir = malloc(strlen(path)+strlen(hom)+1);
 			strcpy(dir, hom);
-			strcat(dir, "/");
+			//strcat(dir, "/");
 			strcat(dir, path);
 			tokens->items[i] = dir;
+		} else if (tokens->items[i][0] == 'l' && tokens->items[i][1] == 's') {
+			
+			const char* path = tokens->items[i] + 1;
+			const char* home = getenv("PATH");
+
+			//make copy of path (cant edit returned string must make copy)
+			char* hom;
+			hom = malloc(sizeof(char) * (strlen(home) + 1));
+			strcpy(hom, home);
+
+			//split up this string after every :
+			
+			char* dir;
+			dir = malloc(strlen(path) + strlen(hom) + 1);
+			char* token = strtok(hom, ":");
+			
+			while (token != NULL) {
+				strcat(dir, token);
+				strcat(dir, "\n");
+				//printf(" %s\n", token); 
+				token = strtok(NULL, ":");
+			}
+			
+			//strcpy(dir, hom);
+			//strcat(dir, "/");
+			//strcat(dir, path);
+			
+			tokens->items[i] = dir;
+			
 		}
 	}
 
