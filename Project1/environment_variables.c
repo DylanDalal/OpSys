@@ -11,6 +11,7 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "main.h"
 
 tokenlist *environment_variables(tokenlist *tokens) {
@@ -20,6 +21,15 @@ tokenlist *environment_variables(tokenlist *tokens) {
 			if (env_var != NULL) {
 				tokens->items[i] = env_var;
 			}
+		} else if (tokens->items[i][0] == '~') {
+			const char *path = tokens->items[i] + 1;
+			const char *hom = getenv("HOME");
+			char *dir;
+			dir = malloc(strlen(path)+strlen(hom)+1);
+			strcpy(dir, hom);
+			strcat(dir, "/");
+			strcat(dir, path);
+			tokens->items[i] = dir;
 		}
 	}
 
