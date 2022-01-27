@@ -12,9 +12,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "main.h"
 
-tokenlist *environment_variables(tokenlist *tokens) {
+tokenlist *environment_variables(tokenlist *tokens) {  
 	for (int i = 0; i < tokens->size; i++) {
 		if (tokens->items[i][0] == '$')	{
 			char *env_var = getenv(tokens->items[i] + 1);
@@ -40,19 +41,38 @@ tokenlist *environment_variables(tokenlist *tokens) {
 			hom = malloc(sizeof(char) * (strlen(home) + 1));
 			strcpy(hom, home);
 
+
+
+			
+			char* const parmList[][3] = {"/bin",  NULL};
+
+			
+
 			//split up this string after every :
 			
 			char* dir;
 			dir = malloc(strlen(path) + strlen(hom) + 1);
 			char* token = strtok(hom, ":");
-			
+			int i = 0;
 			while (token != NULL) {
-				strcat(dir, token);
-				strcat(dir, "\n");
+				//parmList[i] = token;
+				
+				i++;
+				//strcat(dir, token);
+				//strcat(dir, "\n");
+				// 
 				//printf(" %s\n", token); 
 				token = strtok(NULL, ":");
 			}
 			
+			
+			
+			execvp("ls", parmList);
+				
+
+			
+
+
 			//strcpy(dir, hom);
 			//strcat(dir, "/");
 			//strcat(dir, path);
