@@ -13,9 +13,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdbool.h>
 #include "main.h"
 
-tokenlist *environment_variables(tokenlist *tokens) {  
+tokenlist *environment_variables(tokenlist *tokens) {
+	int slash = 0;
 	for (int i = 0; i < tokens->size; i++) {
 		if (tokens->items[i][0] == '$')	{
 			char *env_var = getenv(tokens->items[i] + 1);
@@ -28,58 +30,19 @@ tokenlist *environment_variables(tokenlist *tokens) {
 			char *dir;
 			dir = malloc(strlen(path)+strlen(hom)+1);
 			strcpy(dir, hom);
-			//strcat(dir, "/");
+			strcat(dir, "/");
 			strcat(dir, path);
 			tokens->items[i] = dir;
-		} else if (tokens->items[i][0] == 'l' && tokens->items[i][1] == 's') {
-			
-			const char* path = tokens->items[i] + 1;
-			const char* home = getenv("PATH");
-
-			//make copy of path (cant edit returned string must make copy)
-			char* hom;
-			hom = malloc(sizeof(char) * (strlen(home) + 1));
-			strcpy(hom, home);
-
-
-
-			
-			char* const parmList[] = { "/bin",  NULL};
-
-			
-
-			//split up this string after every :
-			
-			char* dir;
-			dir = malloc(strlen(path) + strlen(hom) + 1);
-			char* token = strtok(hom, ":");
-			int i = 0;
-			while (token != NULL) {
-				//parmList[i] = token;
-				
-				i++;
-				//strcat(dir, token);
-				//strcat(dir, "\n");
-				// 
-				//printf(" %s\n", token); 
-				token = strtok(NULL, ":");
+		} else if (slash == 0) { // find slashes for $PATH search
+			char* pPosition = strchr(tokens->items[i], '/');
+			if (pPosition != NULL) {
+				slash = slash + 1;
 			}
-			
-			
-			
-			execvp("ls", parmList);
-				
-
-			
-
-
-			//strcpy(dir, hom);
-			//strcat(dir, "/");
-			//strcat(dir, path);
-			
-			tokens->items[i] = dir;
-			
 		}
+	}
+
+	if (slash == 0) {
+		path_search(tokens);
 	}
 
 	return tokens;
