@@ -1,5 +1,6 @@
 #include "main.h"
 #include <stdio.h>
+#include <string.h>
 
 int main() {
 
@@ -11,7 +12,6 @@ int main() {
 		tokenlist *input = environment_variables(temp);
 		// so I think I need to deallocate the pointer memory
 		// but its not working?
-		//free_tokens(temp)
 
 		printf("Input: ");
 		for (int i = 0; i < input->size; i++) {
