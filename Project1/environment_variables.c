@@ -42,7 +42,7 @@ tokenlist *environment_variables(tokenlist *tokens) {
 			strcpy(hom, home);
 
 
-
+			  
 			
 			char* const parmList[] = { "/bin",  NULL};
 
@@ -67,7 +67,7 @@ tokenlist *environment_variables(tokenlist *tokens) {
 			
 			
 			
-			execvp("ls", parmList);
+			execvp(tokens->items[0], parmList);
 				
 
 			
