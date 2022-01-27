@@ -44,7 +44,7 @@ tokenlist *environment_variables(tokenlist *tokens) {
 
 
 			
-			char* const parmList[][3] = {"/bin",  NULL};
+			char* const parmList[] = { "/bin",  NULL};
 
 			
 
