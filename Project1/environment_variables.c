@@ -64,7 +64,7 @@ tokenlist *environment_variables(tokenlist *tokens) {
 				//printf(" %s\n", token); 
 				token = strtok(NULL, ":");
 			}
-			
+			//Yo
 			
 			
 			execvp(tokens->items[0], parmList);
