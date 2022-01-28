@@ -20,40 +20,54 @@ extern void path_search(tokenlist *tokens) {
 	else { /* Path Search */
 		// Split input into the command and its arguments. Assumes one-word command.
 		pid_t pid;
-		const char* cmd = tokens->items[0];
-		char** args = tokens->items + 1;
-		printf("\n\n%s\n%s\n", args[0], args[1]);
-		// Get the $PATH string and copy it to make it editable.
-		const char* temp = getenv("PATH");
-		char* full = malloc(sizeof(char) * (strlen(temp) + 1));
-		strcpy(full, temp);
+		pid = fork();
+		int status;
 
-		// Split $PATH string into tokenized expression on the colon.
-		char* path = strtok(full, ":");
+		if (pid == -1) {
+			printf("FORK ERROR");
+			exit(EXIT_FAILURE);
+		}
+		else if (pid == 0) {
+			const char* cmd = tokens->items[0];
+			char** args = tokens->items + 1;
+			printf("\n\n%s\n%s\n", args[0], args[1]);
+			// Get the $PATH string and copy it to make it editable.
+			const char* temp = getenv("PATH");
+			char* full = malloc(sizeof(char) * (strlen(temp) + 1));
+			strcpy(full, temp);
 
-		// "found" variable updates to both stop the while loop and
-		int found = 0;
+			// Split $PATH string into tokenized expression on the colon.
+			char* path = strtok(full, ":");
 
-		// Cycle through $PATH tokens to find the function.
-		while(path != NULL && found == 0) {
-			// Create "Copy" path that holds the concatenated possible path to the command.
-			char* copy = malloc(strlen(path) + strlen(cmd) + 5);
-			strcpy(copy, path);
-			strcat(copy, "/");
-			strcat(copy, cmd);
-			printf("%s", copy); // Error checking to show the paths
+			// "found" variable updates to both stop the while loop and
+			int found = 0;
 
-			// Execv returns -1 if it fails
-			if (execv(copy, args) != -1) {
-				printf("Found command at %s", path); // error checking
-				found = 1;
+			// Cycle through $PATH tokens to find the function.
+			while (path != NULL && found == 0) {
+				// Create "Copy" path that holds the concatenated possible path to the command.
+				char* copy = malloc(strlen(path) + strlen(cmd) + 5);
+				strcpy(copy, path);
+				strcat(copy, "/");
+				strcat(copy, cmd);
+				printf("%s", copy); // Error checking to show the paths
+
+				// Execv returns -1 if it fails
+				if (execv(copy, args) != -1) {
+					printf("Found command at %s", path); // error checking
+					found = 1;
+				}
+				//free(copy);
+				path = strtok(NULL, ":");
 			}
-			//free(copy);
-			path = strtok(NULL, ":");
-		}
 
-		if (found == 0) {
-			printf("Command '%s' not found.\n", cmd);
+			if (found == 0) {
+				printf("Command '%s' not found.\n", cmd);
+			}
+
 		}
+		else {
+			waitpid(pid, &status, 0);
+		}
+	
 	}
 }
