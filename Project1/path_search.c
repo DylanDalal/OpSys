@@ -12,21 +12,44 @@ extern void path_search(tokenlist *tokens) {
 	if (strcmp(tokens->items[0], "echo") == 0) {
 		echo(tokens);
 	}
-//	else if (strcmp(tokens, "jobs") == 0) {
-//		echo(tokens);
-//	} else if (strcmp(tokens, "cd") == 0) {
-//		cd(tokens);
-//	}
+	else if (strcmp(tokens->items[0], "cd") == 0) {
+		chdir("..");
+		char* cwd = getcwd(NULL, 0);
+		setenv(getenv("PWD"), cwd, 1);  // 1 means overwrite
+		free(cwd);
+	}
+	else if (strcmp(tokens->items[0], "jobs") == 0) {
+		FILE* fp = popen("ps -C shell --format '%P %p'", "r");
+		if (fp == NULL)
+		{
+			printf("ERROR!\n");
+		}
+
+		char parentID[256];
+		char processID[256];
+		while (fscanf(fp, "%s %s", parentID, processID) != EOF)
+		{
+			printf("PID: %s  Parent: %s\n", processID, parentID);
+
+			// Check the parentID to see if it that of your process
+		}
+
+		pclose(fp);
+	}
+
+
 	else { /* Path Search */
-		// Split input into the command and its arguments. Assumes one-word command.
+		// Set up fork
 		pid_t pid;
 		pid = fork();
 		int status;
 
+		//if fork did not work
 		if (pid == -1) {
 			printf("FORK ERROR");
 			exit(EXIT_FAILURE);
 		}
+		//if fork worked
 		else if (pid == 0) {
 			const char* cmd = tokens->items[0];
 			char** args = tokens->items + 1;
@@ -65,6 +88,7 @@ extern void path_search(tokenlist *tokens) {
 			}
 
 		}
+		//delete fork
 		else {
 			waitpid(pid, &status, 0);
 		}
