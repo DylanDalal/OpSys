@@ -12,7 +12,7 @@ int path_search(tokenlist *tokens) {
 	if (strcmp(tokens->items[0], "echo") == 0) {
 		echo(tokens);
 	}
-<<<<<<< Updated upstream
+
 	else if (strcmp(tokens->items[0], "cd") == 0) {
 		chdir("..");
 		char* cwd = getcwd(NULL, 0);
@@ -37,21 +37,10 @@ int path_search(tokenlist *tokens) {
 
 		pclose(fp);
 	}
-
-
-	else { /* Path Search */
-		// Set up fork
-=======
 	else if (strcmp(tokens->items[0], "exit") == 0) {
 		return 0;
 	}
-//	else if (strcmp(tokens, "jobs") == 0) {
-//		jobs(tokens);
-//	} else if (strcmp(tokens, "cd") == 0) {
-//		cd(tokens);
-//	}
 	else { /* Path Search */
->>>>>>> Stashed changes
 		pid_t pid;
 		pid = fork();
 		int status;
