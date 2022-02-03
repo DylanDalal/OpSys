@@ -32,8 +32,7 @@ tokenlist *parser()
 	printf("%s@%s : %s > ", getenv("USER"), getenv("NAME"), getenv("PWD"));
 
 	/* "input" contains the whole command
-	 * "tokens" contains substrings from input, split by spaces
-	 */
+	 * "tokens" contains substrings from input, split by spaces */
 			
 	char *input = get_input(); // reads standard in
 

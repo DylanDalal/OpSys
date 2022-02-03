@@ -13,17 +13,22 @@ typedef struct {
 extern tokenlist *parser();
 extern void free_tokens(tokenlist *tokens);
 char *get_input(void);
+extern tokenlist *get_tokens(char *input);
+extern tokenlist *new_tokenlist(void);
+
+extern int is_valid(tokenlist *tokens);
 
 // Environment Variables
 extern tokenlist *environment_variables(tokenlist *tokens);
 
 // Path Search
-extern void path_search(tokenlist *tokens);
+extern int path_search(tokenlist *tokens);
 
 // Built-in Functions
 extern void echo(tokenlist *tokens);
 //extern void cd(tokenlist *tokens);
 //extern void jobs(tokenlist *tokens);
-extern void exit();
+extern int exitShell(tokenlist **a, tokenlist **b, tokenlist **c, tokenlist **input);
+
 
 #endif

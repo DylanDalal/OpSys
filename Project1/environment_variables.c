@@ -35,17 +35,24 @@ tokenlist *environment_variables(tokenlist *tokens) {
 			strcat(dir, path);
 			tokens->items[i] = dir;
 		}
-		else if (slash == 0) { // find slashes for $PATH search
-			char* pPosition = strchr(tokens->items[i], '/');
-			if (pPosition != NULL) {
-				slash = slash + 1;
-			}
-		}
+	}
+
+	char* pPosition = strchr(tokens->items[0], '/');
+	if (pPosition != NULL) {
+		slash = slash + 1;
+		printf("%s: is a directory.\n", tokens->items[0]);
+		tokenlist* empty = new_tokenlist();
+		//return empty;
+		// causes seg fault
 	}
 
 	if (slash == 0) {
-		path_search(tokens);
+		int result = path_search(tokens);
+		if (result == -1) {
+			tokenlist* empty = new_tokenlist();
+			//return empty;
+			// causes seg fault
+		}
 	}
-
 	return tokens;
 }
