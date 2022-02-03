@@ -7,11 +7,12 @@
 #include "main.h"
 
 
-extern void path_search(tokenlist *tokens) {
+int path_search(tokenlist *tokens) {
 	// determine if the input is a built-in function against test
 	if (strcmp(tokens->items[0], "echo") == 0) {
 		echo(tokens);
 	}
+<<<<<<< Updated upstream
 	else if (strcmp(tokens->items[0], "cd") == 0) {
 		chdir("..");
 		char* cwd = getcwd(NULL, 0);
@@ -105,7 +106,6 @@ extern void path_search(tokenlist *tokens) {
 		else {
 			waitpid(pid, &status, 0);
 		}
-	
 
 	}
 	return 0;
