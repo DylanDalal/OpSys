@@ -26,28 +26,31 @@ int main() {
 			}
 			else if (b->items[0] == NULL) {
 				printf("The last valid command was:\n1. ");
-				for (int i = 0; i < a->size; i++)
+				int i;
+				for (i = 0; i < a->size; i++)
 					printf("%s ", a->items[i]);
 				printf("\n");
 			}
 			else if (c->items[0] == NULL) {
 				printf("The last valid commands were:\n1. ");
-				for (int i = 0; i < a->size; i++)
+				int i;
+				for (i = 0; i < a->size; i++)
 					printf("%s ", a->items[i]);
 				printf("\n2. ");
-				for (int i = 0; i < b->size; i++)
+				for (i = 0; i < b->size; i++)
 					printf("%s ", b->items[i]);
 				printf("\n");
 			}
 			else {
 				printf("The last valid commands were:\n1. ");
-				for (int i = 0; i < a->size; i++)
+				int i;
+				for (i = 0; i < a->size; i++)
 					printf("%s ", a->items[i]);
 				printf("\n2. ");
-				for (int i = 0; i < b->size; i++)
+				for (i = 0; i < b->size; i++)
 					printf("%s ", b->items[i]);
 				printf("\n3. ");
-				for (int i = 0; i < c->size; i++)
+				for (i = 0; i < c->size; i++)
 					printf("%s ", c->items[i]);
 				printf("\n");
 			}

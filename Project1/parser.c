@@ -29,7 +29,7 @@ tokenlist *parser()
 {
 	// PROMPT:
 	// MACHINE not working for some reason
-	printf("%s@%s : %s > ", getenv("USER"), getenv("NAME"), getenv("PWD"));
+	printf("%s@%s:%s >", getenv("USER"), getenv("MACHINE"), getenv("PWD"));
 
 	/* "input" contains the whole command
 	 * "tokens" contains substrings from input, split by spaces */
@@ -112,7 +112,8 @@ tokenlist *get_tokens(char *input)
 
 void free_tokens(tokenlist *tokens)
 {
-	for (int i = 0; i < tokens->size; i++)
+	int i;
+	for (i = 0; i < tokens->size; i++)
 		free(tokens->items[i]);
 	free(tokens->items);
 	free(tokens);

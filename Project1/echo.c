@@ -9,7 +9,8 @@
 #include <main.h>
 
 void echo(tokenlist *tokens) {
-	for (int i = 1; i < tokens->size; i++) {
+	int i;
+	for (i = 1; i < tokens->size; i++) {
 		printf("%s ", tokens->items[i]);
 	}
 	printf("\n");

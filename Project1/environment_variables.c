@@ -18,7 +18,8 @@
 
 tokenlist *environment_variables(tokenlist *tokens) {
 	int slash = 0;
-	for (int i = 0; i < tokens->size; i++) {
+	int i;
+	for (i = 0; i < tokens->size; i++) {
 		if (tokens->items[i][0] == '$')	{
 			char *env_var = getenv(tokens->items[i] + 1);
 			if (env_var != NULL) {

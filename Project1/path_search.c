@@ -14,10 +14,13 @@ int path_search(tokenlist *tokens) {
 	}
 
 	else if (strcmp(tokens->items[0], "cd") == 0) {
+		char s[100];
+		//Printing the current working directory
+		printf("%s\n", getcwd(s, 100));
+		//Changing the current working directory to the previous directory
 		chdir("..");
-		char* cwd = getcwd(NULL, 0);
-		setenv(getenv("PWD"), cwd, 1);  // 1 means overwrite
-		free(cwd);
+		//Printing the now current working directory
+		printf("%s\n", getcwd(s, 100));
 	}
 	else if (strcmp(tokens->items[0], "jobs") == 0) {
 		FILE* fp = popen("ps -C shell --format '%P %p'", "r");
