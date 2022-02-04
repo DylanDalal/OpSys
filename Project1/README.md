@@ -44,7 +44,7 @@ How to compile your executables using your Makefile
    ./shell
    
 Known bugs and unfinished portions of the project
-   "exit" does not exit on first try if you have ever put in an invalid command
+   "exit" does not exit on first try if you have inputtted in an invalid command
    
 Special considerations or anything I should know when grading your solution
    i love u jeffrey
