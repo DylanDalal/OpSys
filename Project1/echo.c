@@ -15,7 +15,7 @@ void echo(tokenlist *tokens) {
 	int pipe = 0;
 	FILE *fptr;
 	char filename[100], c;
-
+	int i = 0;
 	for (i = 1; i < tokens->size; i++) {
 		if (strcmp(tokens->items[i], "|") == 0) {
 			pipe = i+1;
