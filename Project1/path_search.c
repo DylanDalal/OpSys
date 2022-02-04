@@ -101,6 +101,14 @@ int path_search(tokenlist *tokens) {
 
 
 int valid_command(tokenlist *tokens) {
+	if (strcmp(tokens->items[0], "echo") == 0)
+		return 0;
+	else if (strcmp(tokens->items[0], "cd") == 0)
+		return 0;
+	else if (strcmp(tokens->items[0], "jobs") == 0)
+		return 0;
+	else if (strcmp(tokens->items[0], "exit") == 0)
+		return 0;
 	// Returns -1 if input is not a valid command.
 	char* pPosition = strchr(tokens->items[0], '/');
 	int slash = 0;

@@ -29,7 +29,7 @@ tokenlist *parser()
 {
 	// PROMPT:
 	// MACHINE not working for some reason
-	printf("%s@%s:%s >", getenv("USER"), getenv("MACHINE"), getenv("PWD"));
+	printf("%s@%s:%s > ", getenv("USER"), getenv("MACHINE"), getenv("PWD"));
 
 	/* "input" contains the whole command
 	 * "tokens" contains substrings from input, split by spaces */
