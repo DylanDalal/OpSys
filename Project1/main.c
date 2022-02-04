@@ -21,10 +21,12 @@ int main() {
 		// but its not working?
 
 		// Exit
-		if (strcmp(input->items[0], "exit") == 0) {
+		int comp = strcmp(input->items[0], "exit");
+		if (comp == 0) {
 			cont = 1;
 			if (a->items[0] == NULL) {
 				printf("No valid commands were executed in this shell.\n");
+				return 1;
 			}
 			else if (b->items[0] == NULL) {
 				printf("The last valid command was:\n1. ");
@@ -32,6 +34,7 @@ int main() {
 				for (i = 0; i < a->size; i++)
 					printf("%s ", a->items[i]);
 				printf("\n");
+				return 1;
 			}
 			else if (c->items[0] == NULL) {
 				printf("The last valid commands were:\n1. ");
@@ -42,6 +45,7 @@ int main() {
 				for (i = 0; i < b->size; i++)
 					printf("%s ", b->items[i]);
 				printf("\n");
+				return 1;
 			}
 			else {
 				printf("The last valid commands were:\n1. ");
@@ -55,7 +59,9 @@ int main() {
 				for (i = 0; i < c->size; i++)
 					printf("%s ", c->items[i]);
 				printf("\n");
+				return 1;
 			}
+			return 1;
 		}
 
 		if (valid_command(input) != -1) {
@@ -64,8 +70,6 @@ int main() {
 			a = input;
 		}
 
-		if (cont == 1)
-			break;
 	}
 }
 

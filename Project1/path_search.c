@@ -32,7 +32,6 @@ int path_search(tokenlist *tokens) {
 		while (fscanf(fp, "%s %s", parentID, processID) != EOF)
 		{
 			printf("PID: %s  Parent: %s\n", processID, parentID);
-
 			// Check the parentID to see if it that of your process
 		}
 
