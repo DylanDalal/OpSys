@@ -64,6 +64,11 @@ void I_Redirection(tokenlist* tokens_ptr) {
     }
 
     pid_t pid = fork();
+    
+    if (pid < 0) {
+        printf("Error");
+        return false;
+    }
 
     if (pid == 0) {
         int stdin = open(ifile, O_RDONLY);
