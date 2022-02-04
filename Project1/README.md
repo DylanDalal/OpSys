@@ -1,76 +1,51 @@
-1. Finish Parser:
-   ~~"Code will be provided to parse the command string into 
-    separate tokens, but you will need to build upon this 
-    code for further parsing."~~
-    
-2. Environment Variables:
-   ~~"Replace every token that starts with a dollar sign character 
-    into its corresponding value."~~
-    
-3. Prompt:
-   "The prompt should indicate the absolute working directory, 
-    the user name, and the machine name. You can do this by 
-    expanding the $USER, $MACHINE, $PWD environment variables."
-   Tilde Expansion:
-   "In Bash, tilde (~) may appear at the beginning of a path, 
-    and it expands to the environment variable $HOME."
-   $Path Search:
-   "When you enter “ls” in Bash, the shell executes the program at 
-    '/usr/bin/ls'. This is a simple search of a predefined list of 
-    directories. This list of directories is defined in the environment 
-    variable called $PATH. When the command does not include a (/) or 
-    is not a built-in function (part 10), you will need to search every 
-    directory specified in $PATH. $PATH is  just a string where the 
-    directories are delimited by a colon. So you will need to perform 
-    some string operations."
-    
-4. External Command Execution:
-   "Either the command included a slash or you had to carry out the 
-   $PATH search, you now have a path to the program you are trying to 
-   execute. To put it simply, we have to fork() and execute the command 
-   in the child process using execv()."
-   
-5. I/O Redirection:
-   "CMD > FILE
-     ◦ CMD writes its standard output to FILE
-     ◦ Create FILE if it does not exist 
-     ◦ Overwrite FILE if it does exist 
-    CMD < FILE
-     ◦ CMD receives its standard input from FILE
-     ◦ Signal an error if FILE does not exist or is not a file"
-     
-6. Piping: 
-   "Instead of redirecting the I/O with a file, piping redirects 
-    the output of the first command with the input of the second command.
-    CMD1 | CMD2
-     ◦ CMD1 redirects its standard output to CMD2's standard input
-    CMD1 | CMD2 | CMD3
-     ◦ CMD1 redirects its standard output to CMD2's standard input
-     ◦ CMD2 redirects its standard output to CMD3's standard input"
-    We're only required to handle two pipes but handling infinite pipes 
-    gets us extra credit.
+Dylan Dalal
+   Parser
+   Environment Variables
+   Prompt
+   Tilde Expansion
+   $Path Search
+   External Command Execution
+   Exit
+   echo
 
-7. Background Processing:
-   "Up to this point, the shell waited to prompt for more user input 
-   when there were any external commands running. Background processing 
-   is a way to tell your shell to not wait for the external command to 
-   finish.
-   CMD &
-    ◦ Execute CMD in the background
-    ◦ When execute starts, print [Job number] [CMD’s PID]
-    ◦ When execution completes, print [Job number]+ [CMD’s command line]
-   CMD1 | CMD2 & 
-    ◦ Execute CMD1 | CMD2 in the background
-    ◦ When execution starts, print [Job number] [CMD2's PID]
-    ◦ When execution completes, print [Job number]+ [CMD1 | CMD2 command line] 
-   Must support redirection with background processing:
-    ◦ CMD > FILE &
-    ◦ CMD < FILE &
-    ◦ CMD < FILE_IN > FILE_OUT &
-    ◦ CMD > FILE_OUT < FILE_IN & "
-    
- 8. Built-in Functions:
-   "exit
-    cd
-    echo
-    jobs"
+Reece Gabbett
+   Parser
+   External Command Execution
+   $Path Search
+   cd
+   jobs
+
+Ben Bao
+   I/O Redirection
+   Piping
+   Background Processing
+      
+How to compile executable:
+   navigate to directory; 'make'
+
+Contents:
+   main.h
+      - declarations of most/all functions
+   main.c
+      - inside of main() function: takes the parser function and passes it to environmental_variables() function, handles exit conditions (poorly)
+   parser.c
+      - pretty much the given parser implementation; some functions made public so they can be accessed elsewhere. edited the prompt
+   environment_variables.c
+      - implements code for environment variables and tilde expansion by analyzing first character of tokens. passes given tokenlist to path_search
+   path_search.c
+      - checks first token to see if it is a built-in command or if a path search is needed. if a path search fails it returns -1. this was supposed to be used for validation check, but, it didn't work. so instead i wrote valid_commmand underneath it.
+   echo.c
+      - implemention of echo command
+   input_output_piping.c
+      - IO redirection
+  
+How to compile your executables using your Makefile
+   'make' in the directory
+   ./shell
+   
+Known bugs and unfinished portions of the project
+   "exit" does not exit on first try if you have ever put in an invalid command
+   
+Special considerations or anything I should know when grading your solution
+   i love u jeffrey
+   
