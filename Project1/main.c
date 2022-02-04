@@ -1,9 +1,11 @@
 #include "main.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
+
 int main() {
-	int cont = 0;
+	int cont = 0; // continue
 	tokenlist *a = new_tokenlist();
 	tokenlist *b = new_tokenlist();
 	tokenlist *c = new_tokenlist();
@@ -55,21 +57,15 @@ int main() {
 				printf("\n");
 			}
 		}
-		if (input->items[0] != NULL) {
+
+		if (valid_command(input) != -1) {
 			c = b;
 			b = a;
 			a = input;
 		}
+
 		if (cont == 1)
 			break;
 	}
 }
-
-	// Debugging: will need to be removed later
-	//		printf("Input: ");
-	//
-	//		for (int i = 0; i < input->size; i++) {
-	//			printf("%s ", input->items[i]);
-	//		}
-
 

@@ -38,22 +38,16 @@ tokenlist *environment_variables(tokenlist *tokens) {
 		}
 	}
 
+	// If the first token in tokenlist contains a '/', input is
+	// not a valid command.
 	char* pPosition = strchr(tokens->items[0], '/');
 	if (pPosition != NULL) {
 		slash = slash + 1;
 		printf("%s: is a directory.\n", tokens->items[0]);
-		tokenlist* empty = new_tokenlist();
-		//return empty;
-		// causes seg fault
 	}
+	int result = 0;
+	if (slash == 0)
+		result = path_search(tokens);
 
-	if (slash == 0) {
-		int result = path_search(tokens);
-		if (result == -1) {
-			tokenlist* empty = new_tokenlist();
-			//return empty;
-			// causes seg fault
-		}
-	}
 	return tokens;
 }

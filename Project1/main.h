@@ -23,6 +23,7 @@ extern tokenlist *environment_variables(tokenlist *tokens);
 
 // Path Search
 extern int path_search(tokenlist *tokens);
+extern int valid_command(tokenlist *tokens);
 
 // Built-in Functions
 extern void echo(tokenlist *tokens);
