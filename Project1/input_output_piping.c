@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/wait.h>
+#include <stdbool.h>
 #include "main.h"
 
 void IO_Redirection(tokenlist* tokens_ptr);
@@ -12,7 +13,7 @@ void I_Redirection(tokenlist* tokens_ptr);
 void Both_Redirection(tokenlist* tokens_ptr);
 
 void O_Redirection(tokenlist* tokens_ptr) {
-    token_list* tokens = new_tokenlist();
+    tokenlist* tokens = new_tokenlist();
     int pos;
 
     for (int i = 0; i < tokens_ptr->size; i++) {
@@ -23,11 +24,13 @@ void O_Redirection(tokenlist* tokens_ptr) {
 
     char* ofile = tokens_ptr->items[pos + 1];
 
-    for (i = 0; i < pos; i++) {
+    for (int i = 0; i < pos; i++) {
         add_token(tokens, tokens_ptr->items[i]);
     }
 
     pid_t pid = fork();
+
+    
 
     if (pid == 0) {
         int stdout = open(ofile, O_CREAT | O_TRUNC | O_RDWR);
@@ -44,7 +47,7 @@ void O_Redirection(tokenlist* tokens_ptr) {
 }
 
 void I_Redirection(tokenlist* tokens_ptr) {
-    token_list* tokens = new_tokenlist();
+    tokenlist* tokens = new_tokenlist();
     int pos;
 
     for (int i = 0; i < tokens_ptr->size; i++) {
@@ -55,7 +58,7 @@ void I_Redirection(tokenlist* tokens_ptr) {
 
     char* ifile = tokens_ptr->items[pos + 1];
 
-    for (i = 0; i < pos; i++) {
+    for (int i = 0; i < pos; i++) {
         add_token(tokens, tokens_ptr->items[i]);
     }
 
@@ -63,7 +66,7 @@ void I_Redirection(tokenlist* tokens_ptr) {
     
     if (pid < 0) {
         printf("Error");
-        return false;
+        return;
     }
 
     if (pid == 0) {
@@ -81,13 +84,13 @@ void I_Redirection(tokenlist* tokens_ptr) {
 }
 
 void Both_Redirection(tokenlist* tokens_ptr) {
-    token_list* tokens = new_tokenlist();
+    tokenlist* tokens = new_tokenlist();
 
     int in_pos;
     int out_pos;
 
-    char* ifile = tokens_ptr->items[pos + 1];
-    char* ofile = tokens_ptr->items[pos + 1];
+    char* ifile = tokens_ptr->items[in_pos + 1];
+    char* ofile = tokens_ptr->items[out_pos + 1];
 
     for (int i = 0; i < tokens_ptr->size; i++) {
         if (tokens_ptr->items[i] == "<") {
@@ -101,7 +104,7 @@ void Both_Redirection(tokenlist* tokens_ptr) {
 
     if (in_pos < out_pos) {
 
-        for (i = 0; i < in_pos; i++) {
+        for (int i = 0; i < in_pos; i++) {
             add_token(tokens, tokens_ptr->items[i]);
         }
 
@@ -129,7 +132,7 @@ void Both_Redirection(tokenlist* tokens_ptr) {
 
     else {
 
-        for (i = 0; i < in_pos; i++) {
+        for (int i = 0; i < in_pos; i++) {
             add_token(tokens, tokens_ptr->items[i]);
         }
 
