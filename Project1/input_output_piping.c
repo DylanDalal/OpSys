@@ -27,10 +27,6 @@ void O_Redirection(tokenlist* tokens_ptr) {
         add_token(tokens, tokens_ptr->items[i]);
     }
 
-    char address[300];
-    strcpy(address, "/usr/bin/");
-    strcat(address, tokens_ptr->items[0])
-
     pid_t pid = fork();
 
     if (pid == 0) {
